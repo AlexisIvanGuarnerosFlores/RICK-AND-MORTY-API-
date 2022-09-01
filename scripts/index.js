@@ -93,19 +93,8 @@ for (let n in data) {
   </div> -->
 </div>`
    }
-
-
-
-
-
 }
-
-                 
-        
-
-
-
- getData();
+getData();
 
 
 

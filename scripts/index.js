@@ -3,9 +3,10 @@
 const url = "https://rickandmortyapi.com/api/character/";
 const divPrincipal = document.querySelector('#gallery-container');
 
+let cargarMasImagenes = false;
 
 
-
+/* Obtener todos los personajes */
 const getData = async () => {
     try {
         const response = await fetch(url);
@@ -19,17 +20,19 @@ const getData = async () => {
 
 }
 
+/* Obtener personajes de acuerdo al buscador */
 const filter =  async () => {
     
     try {
-        
+        cargarMasImagenes = false;
         const inputBusqueda = document.querySelector('#input-busqueda').value;
-        console.log(inputBusqueda);
+        
         if(inputBusqueda !== undefined){
             const response = await fetch(`${url}?name=${inputBusqueda}`);
             const datos = await response.json();
     
             print(datos.results);
+
         }
 
 
@@ -39,13 +42,15 @@ const filter =  async () => {
 
 }
 
+/* Pintar resultados obtenidos */
 const print = (data) => {
 
-    console.log(data);
-
-    while(divPrincipal.firstChild){
-        divPrincipal.removeChild(divPrincipal.firstChild);
+    if(cargarMasImagenes === false){
+        while(divPrincipal.firstChild){
+            divPrincipal.removeChild(divPrincipal.firstChild);
+        }
     }
+
 
     data.forEach(element => {
         let grid_item = document.createElement('div');
@@ -58,12 +63,33 @@ const print = (data) => {
 
 
         divPrincipal.appendChild(grid_item);
+
+        
     });
+
+    setObserver();
 }
 
 
 
- getData();
+/* Funciones para simular lazy load */
+const setObserver = () => {
+    const options = {
+        threshold: 0.5
+    }
 
+    const observer = new IntersectionObserver(callback , options);
+    observer.observe(divPrincipal.lastElementChild);
+}
 
+const callback = (entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            cargarMasImagenes = true;
+            getData();
+            // cargarMasImagenes = false;
+        }
+    })
+}
 
+getData();

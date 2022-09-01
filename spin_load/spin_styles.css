@@ -9,6 +9,12 @@
     box-sizing: border-box;
 }
 
+body{
+    background-image: url(https://i.pinimg.com/originals/e2/fb/0b/e2fb0b2ac9b7e82275eacc8c2ee9c846.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 
 #container_spin {
     background-color: rgb(62, 62, 62);
@@ -16,9 +22,9 @@
     height: 100%;
     position: fixed;
 
-    -webkit-transition: all 5s ease;
-    -o-transition: all 5s ease;
-    transition: all 5s ease;
+    -webkit-transition: all 10s ease;
+    -o-transition: all 10s ease;
+    transition: all 10s ease;
 
     z-index: 1000;
 
